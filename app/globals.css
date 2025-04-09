@@ -1,0 +1,250 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 20% 98%;
+    --foreground: 215 25% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 215 25% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 25% 12%;
+    --primary: 158 45% 30%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 43 65% 57%;
+    --secondary-foreground: 215 25% 12%;
+    --muted: 210 20% 94%;
+    --muted-foreground: 215 20% 40%;
+    --accent: 43 65% 57%;
+    --accent-foreground: 215 25% 12%;
+    --destructive: 0 84% 56%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 158 45% 30%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 215 25% 12%;
+    --foreground: 210 20% 98%;
+    --card: 215 25% 15%;
+    --card-foreground: 210 20% 98%;
+    --popover: 215 25% 15%;
+    --popover-foreground: 210 20% 98%;
+    --primary: 158 45% 40%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 43 65% 57%;
+    --secondary-foreground: 215 25% 12%;
+    --muted: 215 25% 20%;
+    --muted-foreground: 210 20% 80%;
+    --accent: 43 65% 57%;
+    --accent-foreground: 215 25% 12%;
+    --destructive: 0 84% 56%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 215 25% 25%;
+    --input: 215 25% 25%;
+    --ring: 158 45% 40%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* תיקון כיוון טקסט עבור אלמנטים ספציפיים */
+  input,
+  textarea,
+  select {
+    text-align: right;
+  }
+
+  /* תיקון מרווחים עבור אלמנטים בעברית */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    margin-bottom: 0.5em;
+    line-height: 1.5;
+  }
+
+  /* שיפור קריאות טקסט */
+  p,
+  li {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  /* תיקון גלישת טקסט */
+  .overflow-wrap-anywhere {
+    overflow-wrap: anywhere;
+  }
+
+  /* תיקון מרווחים בטפסים */
+  .form-spacing label {
+    margin-bottom: 0.25rem;
+    display: block;
+  }
+
+  .form-spacing input,
+  .form-spacing textarea,
+  .form-spacing select {
+    margin-bottom: 1rem;
+  }
+
+  /* תיקון כיוון אייקונים */
+  [dir="rtl"] svg {
+    transform: scaleX(1);
+  }
+
+  /* תיקון מיקום אייקונים בכפתורים */
+  [dir="rtl"] button svg,
+  [dir="rtl"] a svg {
+    margin-left: 0.5rem;
+    margin-right: 0;
+  }
+
+  /* תיקון מיקום תפריטים נפתחים */
+  [dir="rtl"] .dropdown-menu-content {
+    transform-origin: top right;
+  }
+}
+
+@layer components {
+  .card-hover-effect {
+    @apply transition-all duration-300 hover:shadow-card-hover hover:-translate-y-1;
+  }
+
+  .glass-card {
+    @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-glass;
+  }
+
+  .glass-card-dark {
+    @apply bg-black/30 backdrop-blur-md border border-white/10 shadow-glass;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent;
+  }
+
+  .gradient-bg {
+    @apply bg-gradient-to-r from-primary to-secondary text-white;
+  }
+
+  .dashboard-card {
+    @apply bg-white rounded-xl shadow-subtle p-6 transition-all duration-300 hover:shadow-elevated;
+  }
+
+  .dashboard-stat {
+    @apply text-3xl font-bold text-primary;
+  }
+
+  .dashboard-label {
+    @apply text-sm text-muted-foreground;
+  }
+
+  .dashboard-icon {
+    @apply p-3 rounded-full bg-primary/10 text-primary;
+  }
+}
+
+/* תיקון עבור תצוגה במובייל */
+@media (max-width: 768px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* תיקונים גלובליים לתמיכה ב-RTL */
+html[dir="rtl"] {
+  /* תיקון כיוון טקסט */
+  text-align: right;
+}
+
+/* תיקון מרווחים עבור אלמנטים בעברית */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-bottom: 0.5em;
+  line-height: 1.5;
+}
+
+/* שיפור קריאות טקסט */
+p,
+li {
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+/* תיקון גלישת טקסט */
+.overflow-wrap-anywhere {
+  overflow-wrap: anywhere;
+}
+
+/* תיקון מרווחים בטפסים */
+.form-spacing label {
+  margin-bottom: 0.25rem;
+  display: block;
+}
+
+.form-spacing input,
+.form-spacing textarea,
+.form-spacing select {
+  margin-bottom: 1rem;
+}
+
+/* תיקון כיוון אייקונים */
+[dir="rtl"] svg {
+  transform: scaleX(1);
+}
+
+/* תיקון מיקום אייקונים בכפתורים */
+[dir="rtl"] button svg,
+[dir="rtl"] a svg {
+  margin-left: 0.5rem;
+  margin-right: 0;
+}
+
+/* תיקון מיקום תפריטים נפתחים */
+[dir="rtl"] .dropdown-menu-content {
+  transform-origin: top right;
+}
+
+/* תיקון עבור תצוגה במובייל */
+@media (max-width: 768px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+}
+
