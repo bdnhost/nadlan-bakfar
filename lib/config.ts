@@ -46,6 +46,10 @@ export function setIntegrationKey(key: string): void {
 export const INTEGRATION_KEY = getIntegrationKey()
 
 // כתובת ה-API - ברירת מחדל
+// שים לב: הכתובת הזו אינה נגישה כרגע (ENOTFOUND)
+// יש לעדכן את הכתובת הנכונה של Supabase שלך דרך:
+// 1. משתנה סביבה: API_URL
+// 2. ממשק הניהול: /admin/integration-key
 const DEFAULT_API_URL = "https://waatnnddbujgohmegmeu.supabase.co/functions/v1/external-integration"
 
 // משתנה גלובלי לשמירת כתובת ה-API בזמן ריצה
