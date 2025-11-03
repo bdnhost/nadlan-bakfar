@@ -8,6 +8,10 @@ import ContactForm from "@/components/contact-form"
 import { notFound } from "next/navigation"
 import { USE_MOCK_DATA } from "@/lib/config"
 
+// אלץ rendering דינמי - דפי נכסים בודדים תלויים במסד הנתונים
+export const dynamic = "force-dynamic"
+export const revalidate = 0
+
 interface PropertyPageProps {
   params: {
     id: string

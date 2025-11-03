@@ -8,6 +8,11 @@ import { Bath, Bed, MapPin, Maximize2 } from "lucide-react"
 import { getProperties, type Property } from "@/lib/api-service"
 import { USE_MOCK_DATA } from "@/lib/config"
 
+// אלץ rendering דינמי - לא static generation
+// זה חשוב כי הדף תלוי במסד נתונים שמשתנה
+export const dynamic = "force-dynamic"
+export const revalidate = 0
+
 // עדכון הלוגיקה בדף קטלוג הנכסים כדי להציג הודעה רק אם באמת משתמשים בנתוני דוגמה
 export default async function PropertyCatalog() {
   // Try to get properties, but handle errors gracefully
