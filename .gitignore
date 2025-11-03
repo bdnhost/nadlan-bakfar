@@ -27,6 +27,10 @@ local.db
 *.db-shm
 *.db-wal
 
+# backup directories
+.backup-admin/
+.backup/
+
 # vercel
 .vercel
 
