@@ -45,12 +45,24 @@ export function setIntegrationKey(key: string): void {
 // מפתח האינטגרציה - שימוש בפונקציה במקום בערך ישיר
 export const INTEGRATION_KEY = getIntegrationKey()
 
-// כתובת ה-API - ברירת מחדל
-// שים לב: הכתובת הזו אינה נגישה כרגע (ENOTFOUND)
-// יש לעדכן את הכתובת הנכונה של Supabase שלך דרך:
-// 1. משתנה סביבה: API_URL
-// 2. ממשק הניהול: /admin/integration-key
-const DEFAULT_API_URL = "https://waatnnddbujgohmegmeu.supabase.co/functions/v1/external-integration"
+// כתובת ה-API - עכשיו משתמשים ב-Next.js API Routes במקום Supabase
+// הכתובת תהיה יחסית או מוחלטת בהתאם לסביבה
+function getDefaultApiUrl(): string {
+  // אם אנחנו ב-production עם VERCEL_URL
+  if (process.env.NEXT_PUBLIC_VERCEL_URL) {
+    return `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api`
+  }
+
+  // אם אנחנו ב-browser
+  if (typeof window !== "undefined") {
+    return `${window.location.origin}/api`
+  }
+
+  // ברירת מחדל לפיתוח
+  return "http://localhost:3000/api"
+}
+
+const DEFAULT_API_URL = getDefaultApiUrl()
 
 // משתנה גלובלי לשמירת כתובת ה-API בזמן ריצה
 let runtimeApiUrl: string | null = null
@@ -62,7 +74,7 @@ export function getApiUrl(): string {
     return runtimeApiUrl
   }
 
-  // נסה לקבל כתובת מ-localStorage
+  // נסה לקבל כתובת מ-localStorage (לצורך backward compatibility)
   if (typeof window !== "undefined") {
     try {
       const storedUrl = localStorage.getItem("API_URL")
@@ -75,7 +87,7 @@ export function getApiUrl(): string {
     }
   }
 
-  // אם אין כתובת ב-localStorage, השתמש בכתובת מהסביבה או בברירת המחדל
+  // השתמש בכתובת מהסביבה או בברירת המחדל
   return process.env.API_URL || DEFAULT_API_URL
 }
 

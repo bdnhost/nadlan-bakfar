@@ -115,9 +115,8 @@ export interface LeadData {
   notes?: string
 }
 
-// עדכון הפונקציה validateIntegrationKey כדי שתשתמש בנקודת הקצה get-published-properties
-
 // פונקציה לבדיקת תקינות מפתח האינטגרציה
+// עכשיו משתמשת ב-API Route המקומי במקום Supabase
 export async function validateIntegrationKey(key: string = getIntegrationKey()): Promise<any> {
   try {
     // בדיקה אם המפתח ריק
@@ -128,14 +127,13 @@ export async function validateIntegrationKey(key: string = getIntegrationKey()):
       }
     }
 
-    // שימוש בנקודת הקצה get-published-properties שכבר עובדת במערכת
-    const response = await fetch(`${getApiUrl()}/get-published-properties`, {
-      method: "GET",
+    // שימוש בנקודת קצה חדשה לוולידציה של מפתח
+    const response = await fetch(`${getApiUrl()}/validate-key`, {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-integration-key": key,
-        Authorization: `Bearer ${key}`, // הוספת header אימות
       },
+      body: JSON.stringify({ key }),
     })
 
     // בדיקת תקינות התשובה
@@ -157,23 +155,7 @@ export async function validateIntegrationKey(key: string = getIntegrationKey()):
     // החזרת התשובה מהשרת
     const result = await response.json()
 
-    // בדיקה אם התשובה מכילה נתונים
-    if (result && result.success) {
-      return {
-        success: true,
-        message: "המפתח תקין ופעיל",
-        permissions: {
-          can_create_leads: true,
-          can_manage_properties: true,
-          can_fetch_published_properties: true,
-        },
-      }
-    } else {
-      return {
-        success: false,
-        error: result.error || "תשובת השרת אינה תקינה",
-      }
-    }
+    return result
   } catch (error) {
     console.error("Error validating integration key:", error)
     return {
